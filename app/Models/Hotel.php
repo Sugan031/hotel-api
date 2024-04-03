@@ -40,7 +40,7 @@ class Hotel extends Model {
             }
         }
         if($countryName ||$city||$gridNumber||$uniqueId||$hotelName){
-            $data = $query->paginate();
+            $data = $query->get();
         }
 
         return $data;

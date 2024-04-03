@@ -20,10 +20,11 @@ class HotelController extends Controller {
     }
 
     public function getValuesFromdbSearched(Request $request){
+        
         $countryName = $request->input('country_name');
         $city = $request->input('city');
         $gridNumber = $request->input('grid_number');
-        $uniqueId = $request->input('unique_id');
+        $uniqueId = $request->unique_id;
         $hotelName = $request->input('name');
         $validation = $request->input('validation');
         $credentials = $this->dataFromDb->getValuesFiltered($countryName,$city,$gridNumber,$uniqueId,$hotelName,$validation);
