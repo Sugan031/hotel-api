@@ -10,9 +10,9 @@ class Hotel extends Model {
     use HasFactory;
 
     protected $table = "sample_hotel_data";
-    public function getValues() {
-            return self::paginate(5);
-    }
+    // public function getValues() {
+    //         return self::paginate(5);
+    // }
 
     public function getValuesFiltered($countryName=null,$city=null,$gridNumber=null,$uniqueId=null,$hotelName=null,$validation=null){
 
@@ -38,8 +38,12 @@ class Hotel extends Model {
              $query->where('validation',$validation);
         }
 
-        $data = $query->paginate(20);
+        $count =ceil($query->count()/7);
 
-        return $data;
+        $data = $query->paginate(7);
+
+        $result =['count'=>$count,'data'=>$data];
+
+        return $result;
     }
 }
