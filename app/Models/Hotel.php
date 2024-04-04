@@ -11,7 +11,7 @@ class Hotel extends Model {
 
     protected $table = "sample_hotel_data";
     public function getValues() {
-            return self::all();
+            return self::paginate();
     }
 
     public function getValuesFiltered($countryName=null,$city=null,$gridNumber=null,$uniqueId=null,$hotelName=null,$validation=null){
@@ -40,7 +40,7 @@ class Hotel extends Model {
             }
         }
         if($countryName ||$city||$gridNumber||$uniqueId||$hotelName){
-            $data = $query->get();
+            $data = $query->paginate();
         }
 
         return $data;
