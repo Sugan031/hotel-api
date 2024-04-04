@@ -8,6 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
-Route::get('search',[HotelController::class,'getValuesFromdb'])->name('search');
 Route::post('search',[HotelController::class,'getValuesFromdbSearched']);
