@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Hotel extends Model {
+use function Laravel\Prompts\search;
+
+class Hotel extends Model
+{
     use HasFactory;
 
     protected $table = "sample_hotel_data";
@@ -14,10 +17,11 @@ class Hotel extends Model {
     //         return self::paginate(5);
     // }
 
-    public function getValuesFiltered($countryName=null,$city=null,$gridNumber=null,$uniqueId=null,$hotelName=null,$validation=null){
+    public function getValuesFiltered($countryName = null, $city = null, $gridNumber = null, $uniqueId = null, $hotelName = null, $validation = null)
+    {
 
-         $query = self::query();
-         if ($countryName) {
+        $query = self::query();
+        if ($countryName) {
             $query->where('country_name', $countryName);
         }
         if ($city) {
@@ -31,18 +35,18 @@ class Hotel extends Model {
         }
 
         if ($hotelName) {
-            $query->where('name',$hotelName);
+            $query->where('name', $hotelName);
         }
 
-        if($validation){
-             $query->where('validation',$validation);
+        if ($validation) {
+            $query->where('validation', $validation);
         }
 
-        $count =ceil($query->count()/7);
+        $count = ceil($query->count() / config('common.paginationCount'));
 
-        $data = $query->paginate(7);
+        $data = $query->paginate(config('common.paginationCount'));
 
-        $result =['count'=>$count,'data'=>$data];
+        $result = ['count' => $count, 'data' => $data];
 
         return $result;
     }

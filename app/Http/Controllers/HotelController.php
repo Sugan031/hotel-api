@@ -7,31 +7,22 @@ use Illuminate\Http\Request;
 
 class HotelController extends Controller
 {
-    private $dataFromDb;
+    private $hotelModel;
 
-    public function __construct(Hotel $dataFromDb)
+    public function __construct(Hotel $hotelModel)
     {
-        $this->dataFromDb = $dataFromDb;
+        $this->hotelModel = $hotelModel;
     }
 
-    public function getValuesFromdb()
-    {
-
-        $credentials = $this->dataFromDb->getValues();
-
-        return response()->json($credentials);
-    }
-
-    public function getValuesFromdbSearched(Request $request)
-    {
-
+    public function getValuesFromHotelMaster(Request $request)
+    {   
         $countryName = $request->input('country_name');
         $city = $request->input('city');
         $gridNumber = $request->input('grid_number');
         $uniqueId = $request->input('unique_id');
         $hotelName = $request->input('name');
         $validation = $request->input('validation');
-        $credentials = $this->dataFromDb->getValuesFiltered(
+        $dataFromHotelMaster = $this->hotelModel->getValuesFiltered(
             $countryName,
             $city,
             $gridNumber,
@@ -39,6 +30,7 @@ class HotelController extends Controller
             $hotelName,
             $validation
         );
-        return response()->json($credentials);
+
+        return response()->json($dataFromHotelMaster);
     }
 }
